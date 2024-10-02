@@ -52,13 +52,13 @@ class TestContractBusiness:
     # 4.合同新增
     def test04_add_contract(self):
         test_data = {
-            "name": "测试202409",
-            "phone": "12345789",
-            "contractNo": "HT20240930",
-            "subject": "6",
-            "courseId": "99",
+            "name": "测试202410",
+            "phone": "12345781",
+            "contractNo": "HT20241002",
+            "subject": "7",
+            "courseId": "101",
             "channel": "0",
-            "activityId": 77,
+            "activityId": 78,
             "fileName": "xxx"
         }
         response = self.contract_api.add_contract(test_data=test_data, token=TestContractBusiness.token)

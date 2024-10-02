@@ -18,10 +18,13 @@ class CourseAPI:
     # 初始化
     def __init__(self):
         self.url_add_course = "http://kdtx-test.itheima.net/api/clues/course"
+        self.url_select_course = "http://kdtx-test.itheima.net/api/clues/course/list"
 
     # 课程添加
     def add_course(self,test_data, token):
         return requests.post(url=self.url_add_course, json=test_data, headers={"Authorization":token})
 
-
+    # 查询课程列表
+    def select_course(self,test_data, token):
+        return requests.get(url=self.url_select_course + f"/{test_data}", headers={"Authorization": token})
 
