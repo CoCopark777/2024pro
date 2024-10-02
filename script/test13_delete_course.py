@@ -21,17 +21,9 @@ class TestAddCourseAPI:
         res_l = self.login_api.login(test_data=login_data)
         TestAddCourseAPI.token = res_l.json().get("token")
 
-    def teardown_method(self):
-        pass
-
-    def test01_success(self):
-        add_data = {
-            "name": "测试开发课1002",
-            "subject": "6",
-            "price": 899,
-            "applicablePerson": "2"
-        }
-        response = self.course_api.add_course(test_data=add_data, token=TestAddCourseAPI.token)
+    # 课程删除成功
+    def test01_delete_course(self):
+        response = self.course_api.delete_course(course_id=23056458704342213, token=TestAddCourseAPI.token)
         print(response.json())
         # 断言状态码200
         assert 200 == response.status_code
@@ -40,15 +32,21 @@ class TestAddCourseAPI:
         # 断言响应JSON数据中的code值
         assert 200 == response.json().get("code")
 
-    #（未登录）
-    def test02_fail(self):
-        add_data = {
-            "name": "测试开发课1002",
-            "subject": "6",
-            "price": 899,
-            "applicablePerson": "2"
-        }
-        response = self.course_api.add_course(test_data=add_data, token="XXX")
+    # 课程删除失败(id不存在)
+
+    def test02_delete_fail_id_exist(self):
+        response = self.course_api.delete_course(course_id=000, token=TestAddCourseAPI.token)
+        print(response.json())
+        # 断言状态码200
+        assert 200 == response.status_code
+        # 断言响应信息包含成功
+        assert "操作失败" in response.text
+        # 断言响应JSON数据中的code值
+        assert 500 == response.json().get("code")
+
+    # 课程删除失败（用户未登录）
+    def test03_delete_fail(self):
+        response = self.course_api.delete_course(course_id=111, token="XXX")
         print(response.json())
         # 断言状态码200
         assert 200 == response.status_code

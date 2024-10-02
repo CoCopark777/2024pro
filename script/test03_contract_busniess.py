@@ -2,6 +2,7 @@
 from api.login import LoginAPI
 from api.course import CourseAPI
 from api.contract import ContractAPI
+import config
 
 # 创建测试类
 class TestContractBusiness:
@@ -45,7 +46,7 @@ class TestContractBusiness:
 
     # 3.合同上传成功
     def test03_upload_contract(self):
-        f = open("../data/zyf.webp", "rb")
+        f = open(config.BASE_PATH + "/data/zyf.webp", "rb")
         response = self.contract_api.upload_contract(test_data="", token=TestContractBusiness.token)
         print(response.json())
 

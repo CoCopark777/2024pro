@@ -4,6 +4,7 @@
 from api.login import LoginAPI
 import pytest
 import json
+import config
 
 
 # test_data = [
@@ -50,7 +51,9 @@ class TestLoginAPI:
         pass
 
     # 登录成功
-    @pytest.mark.parametrize("username,password,status, message, code", build_data(json_file="../data/login.json"))
+    # @pytest.mark.parametrize("username,password,status, message, code", build_data(json_file="../data/login.json"))
+    @pytest.mark.parametrize("username,password,status, message, code",
+                             build_data(json_file=config.BASE_PATH + "/data/login.json"))
     def test01_success(self, username, password, status, message, code):
         login_data = {
             "username": username,

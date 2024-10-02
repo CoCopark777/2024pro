@@ -21,18 +21,10 @@ class TestAddCourseAPI:
         res_l = self.login_api.login(test_data=login_data)
         TestAddCourseAPI.token = res_l.json().get("token")
 
-    def teardown_method(self):
-        pass
-
-    def test01_success(self):
-        add_data = {
-            "name": "测试开发课1002",
-            "subject": "6",
-            "price": 899,
-            "applicablePerson": "2"
-        }
-        response = self.course_api.add_course(test_data=add_data, token=TestAddCourseAPI.token)
-        print(response.json())
+    def test01_select_success(self):
+        # 查询到数据太多报错，没有打印出来
+        response = self.course_api.select_course(test_data="?测试开发提升课01", token=TestAddCourseAPI.token)
+        print(response.text)
         # 断言状态码200
         assert 200 == response.status_code
         # 断言响应信息包含成功
@@ -40,15 +32,9 @@ class TestAddCourseAPI:
         # 断言响应JSON数据中的code值
         assert 200 == response.json().get("code")
 
-    #（未登录）
-    def test02_fail(self):
-        add_data = {
-            "name": "测试开发课1002",
-            "subject": "6",
-            "price": 899,
-            "applicablePerson": "2"
-        }
-        response = self.course_api.add_course(test_data=add_data, token="XXX")
+    # （未登录）
+    def test02_select_fail(self):
+        response = self.course_api.select_course(test_data="?subject=6", token="XXX")
         print(response.json())
         # 断言状态码200
         assert 200 == response.status_code

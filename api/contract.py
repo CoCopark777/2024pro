@@ -10,13 +10,16 @@ URL： http://kdtx-test.itheima.net/api/common/upload
 """
 
 import requests
+import config
 
 
 class ContractAPI:
     # 初始化
     def __init__(self):
-        self.url_upload = "http://kdtx-test.itheima.net/api/common/upload"
-        self.url_add_contract = "http://kdtx-test.itheima.net/api/contract"
+        # self.url_upload = "http://kdtx-test.itheima.net/api/common/upload"
+        # self.url_add_contract = "http://kdtx-test.itheima.net/api/contract"
+        self.url_upload = config.BASE_URL + "/api/common/upload"
+        self.url_add_contract = config.BASE_URL + "/api/contract"
 
     # 合同上传接口
     def upload_contract(self, test_data, token):

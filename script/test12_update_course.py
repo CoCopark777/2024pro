@@ -21,17 +21,17 @@ class TestAddCourseAPI:
         res_l = self.login_api.login(test_data=login_data)
         TestAddCourseAPI.token = res_l.json().get("token")
 
-    def teardown_method(self):
-        pass
-
-    def test01_success(self):
-        add_data = {
-            "name": "测试开发课1002",
+    # 课程修改成功
+    def test01_update_success(self):
+        update_data = {
+            "id": 23056458704342213,
+            "name": "测试开发课01",
             "subject": "6",
             "price": 899,
-            "applicablePerson": "2"
+            "applicablePerson": "2",
+            "info": "课程介绍1"
         }
-        response = self.course_api.add_course(test_data=add_data, token=TestAddCourseAPI.token)
+        response = self.course_api.update_course(test_data=update_data, token=TestAddCourseAPI.token)
         print(response.json())
         # 断言状态码200
         assert 200 == response.status_code
@@ -40,15 +40,17 @@ class TestAddCourseAPI:
         # 断言响应JSON数据中的code值
         assert 200 == response.json().get("code")
 
-    #（未登录）
-    def test02_fail(self):
-        add_data = {
-            "name": "测试开发课1002",
+    # 课程修改失败（未登录）
+    def test02_update_fail(self):
+        update_data = {
+            "id": 23056458704342213,
+            "name": "测试开发课01",
             "subject": "6",
             "price": 899,
-            "applicablePerson": "2"
+            "applicablePerson": "2",
+            "info": "课程介绍1"
         }
-        response = self.course_api.add_course(test_data=add_data, token="XXX")
+        response = self.course_api.update_course(test_data=update_data, token="xxx")
         print(response.json())
         # 断言状态码200
         assert 200 == response.status_code
